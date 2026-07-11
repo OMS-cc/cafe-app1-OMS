@@ -1,0 +1,2 @@
+@import url("create.css");
+.not-found { min-height: 16rem; display: grid; place-content: center; justify-items: center; gap: .75rem; background: #fff; border: 1px solid #e6eae5; }.not-found svg { width: 2rem; color: var(--color-muted); }
