@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>메뉴 관리 | ORBIT CAFE</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="list.css">
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="sidebar">
+        <a class="brand" href="../index.html"><span class="brand-mark">O</span><span>ORBIT<br>CAFE</span></a>
+        <nav class="side-nav" aria-label="관리자 메뉴">
+          <a href="../index.html"><i data-lucide="layout-dashboard"></i>대시보드</a>
+          <a class="is-active" href="list.html"><i data-lucide="coffee"></i>메뉴 관리</a>
+          <a href="../orders/list.html"><i data-lucide="receipt-text"></i>주문 관리</a>
+        </nav>
+        <div class="sidebar-user"><span class="avatar">M</span><span><strong>Manager</strong><small>매장 관리자</small></span></div>
+      </aside>
+      <main class="main-content">
+        <header class="page-top"><div><p class="eyebrow">CATALOG</p><h1>메뉴 관리</h1><p class="page-description">매장에서 판매하는 메뉴와 판매 상태를 관리합니다.</p></div><a class="button button-primary" href="create.html"><i data-lucide="plus"></i>새 메뉴 추가</a></header>
+        <section class="stats" aria-label="메뉴 요약"><article><span>전체 메뉴</span><strong id="menu-count">0</strong></article><article><span>판매 중</span><strong id="available-count">0</strong></article><article><span>판매 중지</span><strong id="unavailable-count">0</strong></article></section>
+        <section class="menu-panel">
+          <div class="toolbar"><label class="search"><i data-lucide="search"></i><input id="search-input" type="search" placeholder="메뉴 이름으로 검색"></label><label class="select-wrap"><span class="sr-only">카테고리</span><select id="category-filter"><option value="all">전체 카테고리</option></select></label><label class="select-wrap"><span class="sr-only">판매 상태</span><select id="availability-filter"><option value="all">전체 상태</option><option value="available">판매 중</option><option value="unavailable">판매 중지</option></select></label></div>
+          <div class="table-scroll"><table><thead><tr><th>메뉴</th><th>카테고리</th><th>가격</th><th>판매 상태</th><th><span class="sr-only">작업</span></th></tr></thead><tbody id="menu-list"></tbody></table></div>
+          <div id="empty-state" class="empty-state" hidden><i data-lucide="search-x"></i><strong>검색 결과가 없습니다.</strong><span>조건을 바꿔 다시 찾아보세요.</span></div>
+        </section>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="../../js/data.js"></script><script src="../../js/utils.js"></script><script src="list.js"></script>
+  </body>
+</html>
