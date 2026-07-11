@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>메뉴 | ORBIT CAFE</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="list.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../index.html" aria-label="ORBIT CAFE 홈"><span class="brand-symbol">O</span><span>ORBIT CAFE</span></a>
+        <nav class="main-nav" aria-label="주요 메뉴"><a class="is-active" href="list.html">메뉴</a><a href="../orders/list.html">주문 조회</a><a class="cart-link" href="../basket/list.html" aria-label="장바구니"><i data-lucide="shopping-bag"></i><span class="cart-count">0</span></a></nav>
+      </div>
+    </header>
+    <main>
+      <section class="menu-intro">
+        <div class="menu-intro-copy">
+          <p class="eyebrow">ORBIT MENU</p>
+          <p class="intro-kicker">A small pause, made for you</p>
+          <h1>오늘, 기분 좋은<br>한 잔을 골라보세요.</h1>
+          <p class="intro-description">마음이 머무는 순간에 어울리는<br>커피와 디저트를 준비했어요.</p>
+          <a class="intro-link" href="#menu-title">메뉴 둘러보기 <i data-lucide="arrow-down-right"></i></a>
+        </div>
+        <div class="intro-photo"><img src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?auto=format&fit=crop&w=1100&q=88" alt="따뜻한 커피와 디저트가 놓인 카페 테이블"></div>
+      </section>
+      <section class="menu-content" aria-labelledby="menu-title"><div class="menu-tools"><h2 id="menu-title">메뉴 전체</h2><label class="search"><i data-lucide="search"></i><span class="sr-only">메뉴 검색</span><input id="search-input" type="search" placeholder="메뉴를 검색하세요"></label></div><div id="category-tabs" class="category-tabs" role="tablist" aria-label="메뉴 카테고리"></div><div id="menu-grid" class="menu-grid"></div><div id="empty-state" class="empty-state" hidden><i data-lucide="search-x"></i><strong>찾으시는 메뉴가 없어요.</strong><span>다른 검색어나 카테고리를 선택해 보세요.</span></div></section>
+    </main>
+    <footer class="site-footer"><span>ORBIT CAFE</span><span>매일 신선한 원두와 재료로 준비합니다.</span></footer>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="../js/data.js"></script><script src="../js/utils.js"></script><script src="list.js"></script>
+  </body>
+</html>

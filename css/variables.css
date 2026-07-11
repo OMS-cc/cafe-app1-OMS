@@ -1,15 +1,15 @@
 :root {
-  --color-ink: #1f2933;
-  --color-muted: #687280;
+  --color-ink: #3b2d28;
+  --color-muted: #74655e;
   --color-surface: #ffffff;
-  --color-background: #f5f6f3;
-  --color-primary: #176b57;
-  --color-primary-strong: #0f5242;
-  --color-accent: #d98b3a;
+  --color-background: #fbf9f8;
+  --color-primary: #a87059;
+  --color-primary-strong: #80503f;
+  --color-accent: #d38d74;
   --color-danger: #b42318;
   --color-success: #1f7a49;
-  --color-border: #d9ded9;
-  --color-focus: #176b57;
+  --color-border: #dfd3ce;
+  --color-focus: #a87059;
 
   --font-sans: "Noto Sans KR", "Segoe UI", Arial, sans-serif;
   --font-size-xs: 0.75rem;
