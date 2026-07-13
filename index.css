@@ -16,3 +16,19 @@ body { background: #fbf9f8; }.site-header { position: sticky; top: 0; z-index: 5
 .homepage-set-card strong { display: block; margin-top: .65rem; color: #654335; font-size: .82rem; }
 @keyframes recommendation-enter { from { opacity: 0; transform: translateY(.4rem); } to { opacity: 1; transform: translateY(0); } }
 @media(max-width:700px) { .homepage-sets { width: min(100% - 1.5rem, 75rem); padding-bottom: 3.5rem; } .homepage-set-grid { grid-template-columns: 1fr; } .recommendation-grid { max-width: none; } }
+/* Refined hero scale and a full-width recommendation stage. */
+.hero h1 { font-size: clamp(2rem, 3.6vw, 3.35rem); line-height: 1.2; }
+.recommendation-grid { width: 100%; max-width: none; }
+.recommendation-card { width: 100%; }
+.recommendation-card-image { min-height: clamp(17rem, 33vw, 25rem); position: relative; display: grid; place-items: center; isolation: isolate; background: #6b554d; }
+.recommendation-card-image::before { content: ""; position: absolute; z-index: -1; inset: -1.5rem; background-image: var(--recommendation-image); background-position: center; background-size: cover; filter: blur(1.35rem); opacity: .64; transform: scale(1.06); }
+.recommendation-card img { width: auto; max-width: 100%; height: 100%; max-height: 25rem; aspect-ratio: auto; position: relative; object-fit: contain; }
+.recommendation-copy { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: .9rem 0 0; }
+.recommendation-copy p { margin: 0; }
+.recommendation-copy h3 { flex: 1; margin: 0; }
+.homepage-set-card { color: inherit; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+.homepage-set-card:hover { transform: translateY(-.2rem); box-shadow: 0 10px 22px rgb(90 60 49 / 10%); }
+.homepage-set-price { display: flex !important; align-items: baseline; gap: .45rem; margin-top: .65rem; }
+.homepage-set-price del { color: #aa9993; font-size: .7rem; }
+.homepage-set-price strong { margin: 0; color: #654335; font-size: .86rem; }
+@media(max-width:700px) { .hero h1 { font-size: clamp(1.65rem, 7.2vw, 2.15rem); } .recommendation-card-image { min-height: 15rem; } .recommendation-card img { max-height: 19rem; } }

@@ -28,3 +28,13 @@ body { background: #fbf9f8; }
 .set-card-bottom button:hover { background: var(--color-primary-strong); }
 .set-card-bottom svg { width: .82rem; }
 @media (max-width: 700px) { .set-menu-heading { align-items: flex-start; flex-direction: column; } .set-menu-heading > p { text-align: left; } .set-menu-grid { grid-template-columns: 1fr; } .set-card { display: grid; grid-template-columns: 8rem 1fr; } .set-card > img { height: 100%; aspect-ratio: auto; } }
+.menu-intro h1 { font-size: clamp(1.85rem, 3.35vw, 3rem); line-height: 1.22; }
+.set-card { color: inherit; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+.set-card:hover { transform: translateY(-.2rem); box-shadow: 0 10px 22px rgb(90 60 49 / 10%); }
+.set-card-bottom { align-items: end; }
+.set-price { display: grid; gap: .12rem; }
+.set-price del { color: #aa9993; font-size: .68rem; }
+.set-price strong { color: #573d33; font-size: .9rem; }
+.set-detail-link { display: inline-flex; align-items: center; gap: .25rem; color: #80503f; font-size: .72rem; font-weight: 800; }
+.set-detail-link svg { width: .82rem; }
+@media (max-width: 600px) { .menu-intro h1 { font-size: clamp(1.6rem, 7.2vw, 2.05rem); } }

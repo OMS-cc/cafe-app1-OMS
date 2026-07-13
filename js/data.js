@@ -49,7 +49,7 @@
       description: "베르가못의 산뜻한 향이 은은하게 퍼지는 홍차입니다.",
       image: assetBase + "earl-grey-tea.jpg",
       isAvailable: true,
-      options: { temperatures: ["hot", "iced"], sizes: ["regular"] }
+      options: { temperatures: ["hot", "iced"], sizes: ["regular", "large"] }
     },
     {
       id: "menu-butter-scone",
@@ -87,7 +87,7 @@
     },
     {
       id: "menu-lemon-ade", name: "레몬 에이드", categoryId: "non-coffee", price: 5500,
-      description: "상큼한 레몬과 탄산이 기분 좋게 어우러진 에이드입니다.", image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&h=900&q=88", isAvailable: true,
+      description: "상큼한 레몬과 탄산이 기분 좋게 어우러진 에이드입니다.", image: assetBase + "lemon-ade.jpg", isAvailable: true,
       options: { temperatures: ["iced"], sizes: ["regular", "large"] }
     },
     {
@@ -98,11 +98,11 @@
     {
       id: "menu-chamomile-tea", name: "캐모마일 티", categoryId: "tea", price: 4800,
       description: "은은한 꽃향으로 편안한 휴식을 더해주는 허브티입니다.", image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=900&h=900&q=88", isAvailable: true,
-      options: { temperatures: ["hot", "iced"], sizes: ["regular"] }
+      options: { temperatures: ["hot", "iced"], sizes: ["regular", "large"] }
     },
     {
       id: "menu-basque-cheesecake", name: "바스크 치즈케이크", categoryId: "dessert", price: 6500,
-      description: "겉은 진하게 구워내고 속은 촉촉하게 만든 치즈케이크입니다.", image: "https://images.unsplash.com/photo-1578775887804-699de7086ff9?auto=format&fit=crop&w=900&h=900&q=88", isAvailable: true,
+      description: "겉은 진하게 구워내고 속은 촉촉하게 만든 치즈케이크입니다.", image: assetBase + "basque-cheesecake.jpg", isAvailable: true,
       options: { temperatures: [], sizes: [] }
     },
     {
@@ -121,6 +121,7 @@
       name: "모닝 커피 세트",
       description: "아메리카노와 버터 스콘으로 가볍게 시작하는 한 잔",
       items: ["아메리카노", "버터 스콘"],
+      originalPrice: 8300,
       price: 7800,
       image: assetBase + "americano.jpg"
     },
@@ -129,6 +130,7 @@
       name: "스위트 브레이크 세트",
       description: "카페 라떼와 아몬드 피낭시에의 포근한 오후 조합",
       items: ["카페 라떼", "아몬드 피낭시에"],
+      originalPrice: 8400,
       price: 7900,
       image: assetBase + "almond-financier.jpg"
     },
@@ -137,6 +139,7 @@
       name: "티타임 세트",
       description: "얼그레이 티와 바스크 치즈케이크로 완성하는 여유",
       items: ["얼그레이 티", "바스크 치즈케이크"],
+      originalPrice: 11300,
       price: 9800,
       image: assetBase + "earl-grey-tea.jpg"
     }
@@ -240,6 +243,28 @@
       });
       if (refreshedTeaCatalog.length) { window.localStorage.setItem("cafe-app:menus", JSON.stringify(refreshedTeaCatalog)); }
       window.localStorage.setItem("cafe-app:tea-temperatures-v7", "true");
+    }
+  } catch (error) {
+    // The app still works when the browser blocks local storage.
+  }
+  // Refresh new local photos and add Large options for the two tea menus.
+  try {
+    if (!window.localStorage.getItem("cafe-app:menu-options-images-v8")) {
+      var savedCatalogV8 = JSON.parse(window.localStorage.getItem("cafe-app:menus") || "[]");
+      var defaultsV8 = menus.reduce(function (result, menu) { result[menu.id] = menu; return result; }, {});
+      var updatedCatalogV8 = savedCatalogV8.map(function (menu) {
+        var defaultMenu = defaultsV8[menu.id];
+        if (!defaultMenu) { return menu; }
+        if (menu.id === "menu-basque-cheesecake" || menu.id === "menu-lemon-ade") {
+          return Object.assign({}, menu, { image: defaultMenu.image });
+        }
+        if (menu.id === "menu-earl-grey" || menu.id === "menu-chamomile-tea") {
+          return Object.assign({}, menu, { options: Object.assign({}, menu.options || {}, { temperatures: ["hot", "iced"], sizes: ["regular", "large"] }) });
+        }
+        return menu;
+      });
+      if (updatedCatalogV8.length) { window.localStorage.setItem("cafe-app:menus", JSON.stringify(updatedCatalogV8)); }
+      window.localStorage.setItem("cafe-app:menu-options-images-v8", "true");
     }
   } catch (error) {
     // The app still works when the browser blocks local storage.
