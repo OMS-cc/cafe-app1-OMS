@@ -4,3 +4,6 @@
 .add-to-cart { width: 100%; min-height: 2.9rem; margin-top: 1.4rem; border: 0; color: #fff; background: var(--color-primary); font-size: .86rem; font-weight: 800; }.add-to-cart:hover { background: var(--color-primary-strong); }.add-to-cart:disabled { cursor: not-allowed; color: #8c7770; background: #e7ddda; }
 
 .option-list { display: grid; gap: .9rem; }.option-group { display: grid; gap: .45rem; }.option-label { color: #6e5145; font-size: .74rem; font-weight: 800; }.option-buttons { display: flex; flex-wrap: wrap; gap: .45rem; }.option-button { min-width: 5.5rem; min-height: 2.45rem; border: 1px solid #dfcfc8; color: #80695f; background: #fff; font-size: .78rem; font-weight: 750; }.option-button:hover { border-color: var(--color-primary); color: var(--color-primary-strong); }.option-button.is-selected { border-color: var(--color-primary); color: #fff; background: var(--color-primary); }.option-chip { padding: .5rem .65rem; border: 1px solid #dfcfc8; color: #80695f; font-size: .74rem; }
+
+.product-price { display: grid; gap: .25rem; }
+.product-price small { color: #9a7c70; font-size: .72rem; font-weight: 600; }

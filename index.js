@@ -2,6 +2,7 @@
   "use strict";
 
   var categoryLabels = { coffee: "COFFEE", "non-coffee": "NON-COFFEE", tea: "TEA", dessert: "DESSERT" };
+  var recommendationIds = ["menu-americano", "menu-strawberry-latte", "menu-basque-cheesecake"];
   var recommendationIndex = 0;
   var rotationTimer;
 
@@ -13,12 +14,18 @@
 
   function availableMenus() {
     var storedMenus = CafeUtils.storage.get(CafeData.storageKeys.menus, []);
-    return (storedMenus.length ? storedMenus : CafeData.menus).filter(function (menu) { return menu.isAvailable; });
+    return (storedMenus.length ? storedMenus : CafeData.menus).filter(function (menu) {
+      return menu.isAvailable && recommendationIds.indexOf(menu.id) !== -1;
+    });
   }
 
   function updateCartCount() {
     var cart = CafeUtils.storage.get(CafeData.storageKeys.cart, []);
     document.getElementById("cart-count").textContent = cart.reduce(function (sum, item) { return sum + Number(item.quantity || 0); }, 0);
+  }
+
+  function setPrice(set) {
+    return '<del>' + CafeUtils.formatPrice(set.originalPrice) + '</del><strong>' + CafeUtils.formatPrice(set.price) + '</strong>';
   }
 
   function renderRecommendation(menus) {
@@ -30,7 +37,8 @@
       return;
     }
     var menu = menus[recommendationIndex % menus.length];
-    grid.innerHTML = '<a class="recommendation-card is-visible" href="menus/detail.html?id=' + encodeURIComponent(menu.id) + '"><div class="recommendation-card-image"><img src="' + escapeHtml(menu.image || "") + '" alt="' + escapeHtml(menu.name) + ' 사진"></div><p>' + (categoryLabels[menu.categoryId] || menu.categoryId) + '</p><h3>' + escapeHtml(menu.name) + '<span>' + CafeUtils.formatPrice(menu.price) + '</span></h3></a>';
+    var image = escapeHtml(menu.image || "");
+    grid.innerHTML = '<a class="recommendation-card is-visible" href="menus/detail.html?id=' + encodeURIComponent(menu.id) + '"><div class="recommendation-card-image" style="--recommendation-image:url(' + image + ')"><img src="' + image + '" alt="' + escapeHtml(menu.name) + ' 사진"></div><div class="recommendation-copy"><p>' + (categoryLabels[menu.categoryId] || menu.categoryId) + '</p><h3>' + escapeHtml(menu.name) + '<span>' + CafeUtils.formatPrice(menu.price) + '</span></h3></div></a>';
     dots.innerHTML = menus.map(function (item, index) {
       return '<button class="recommendation-dot' + (index === recommendationIndex % menus.length ? ' is-active' : '') + '" type="button" data-index="' + index + '" aria-label="' + escapeHtml(item.name) + ' 보기" aria-current="' + (index === recommendationIndex % menus.length) + '"></button>';
     }).join("");
@@ -39,11 +47,11 @@
   function renderSets() {
     var root = document.getElementById("homepage-set-grid");
     root.innerHTML = (CafeData.setMenus || []).map(function (set) {
-      return '<article class="homepage-set-card"><img src="' + escapeHtml(set.image) + '" alt="' + escapeHtml(set.name) + ' 사진"><div><p>ORBIT SET</p><h3>' + escapeHtml(set.name) + '</h3><span>' + escapeHtml(set.items.join(" + ")) + '</span><strong>' + CafeUtils.formatPrice(set.price) + '</strong></div></article>';
+      return '<a class="homepage-set-card" href="menus/set-detail.html?id=' + encodeURIComponent(set.id) + '"><img src="' + escapeHtml(set.image) + '" alt="' + escapeHtml(set.name) + ' 사진"><div><p>ORBIT SET</p><h3>' + escapeHtml(set.name) + '</h3><span>' + escapeHtml(set.items.join(" + ")) + '</span><span class="homepage-set-price">' + setPrice(set) + '</span></div></a>';
     }).join("");
   }
 
-  var menus = availableMenus().slice(0, 3);
+  var menus = availableMenus();
   updateCartCount();
   renderRecommendation(menus);
   renderSets();
