@@ -49,7 +49,7 @@
       description: "베르가못의 산뜻한 향이 은은하게 퍼지는 홍차입니다.",
       image: assetBase + "earl-grey-tea.jpg",
       isAvailable: true,
-      options: { temperatures: ["hot"], sizes: ["regular"] }
+      options: { temperatures: ["hot", "iced"], sizes: ["regular"] }
     },
     {
       id: "menu-butter-scone",
@@ -98,7 +98,7 @@
     {
       id: "menu-chamomile-tea", name: "캐모마일 티", categoryId: "tea", price: 4800,
       description: "은은한 꽃향으로 편안한 휴식을 더해주는 허브티입니다.", image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=900&h=900&q=88", isAvailable: true,
-      options: { temperatures: ["hot"], sizes: ["regular"] }
+      options: { temperatures: ["hot", "iced"], sizes: ["regular"] }
     },
     {
       id: "menu-basque-cheesecake", name: "바스크 치즈케이크", categoryId: "dessert", price: 6500,
@@ -115,10 +115,36 @@
       description: "부드러운 마스카포네와 커피 향이 어우러진 클래식 디저트입니다.", image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&h=900&q=88", isAvailable: true,
       options: { temperatures: [], sizes: [] }
     }  ];
-
+  var setMenus = [
+    {
+      id: "set-morning-pair",
+      name: "모닝 커피 세트",
+      description: "아메리카노와 버터 스콘으로 가볍게 시작하는 한 잔",
+      items: ["아메리카노", "버터 스콘"],
+      price: 7800,
+      image: assetBase + "americano.jpg"
+    },
+    {
+      id: "set-sweet-break",
+      name: "스위트 브레이크 세트",
+      description: "카페 라떼와 아몬드 피낭시에의 포근한 오후 조합",
+      items: ["카페 라떼", "아몬드 피낭시에"],
+      price: 7900,
+      image: assetBase + "almond-financier.jpg"
+    },
+    {
+      id: "set-tea-time",
+      name: "티타임 세트",
+      description: "얼그레이 티와 바스크 치즈케이크로 완성하는 여유",
+      items: ["얼그레이 티", "바스크 치즈케이크"],
+      price: 9800,
+      image: assetBase + "earl-grey-tea.jpg"
+    }
+  ];
   window.CafeData = Object.freeze({
     categories: Object.freeze(categories),
     menus: Object.freeze(menus),
+    setMenus: Object.freeze(setMenus),
     storageKeys: Object.freeze({
       menus: "cafe-app:menus",
       cart: "cafe-app:cart",
@@ -198,6 +224,22 @@
       });
       if (catalogWithLocalPhotos.length) { window.localStorage.setItem("cafe-app:menus", JSON.stringify(catalogWithLocalPhotos)); }
       window.localStorage.setItem("cafe-app:menu-images-v6", "true");
+    }
+  } catch (error) {
+    // The app still works when the browser blocks local storage.
+  }
+  // Give the two tea menus the same Hot/Ice choice available in the current catalog.
+  try {
+    if (!window.localStorage.getItem("cafe-app:tea-temperatures-v7")) {
+      var savedTeaCatalog = JSON.parse(window.localStorage.getItem("cafe-app:menus") || "[]");
+      var teaOptionIds = ["menu-earl-grey", "menu-chamomile-tea"];
+      var refreshedTeaCatalog = savedTeaCatalog.map(function (menu) {
+        return teaOptionIds.indexOf(menu.id) !== -1 ? Object.assign({}, menu, {
+          options: Object.assign({}, menu.options || {}, { temperatures: ["hot", "iced"] })
+        }) : menu;
+      });
+      if (refreshedTeaCatalog.length) { window.localStorage.setItem("cafe-app:menus", JSON.stringify(refreshedTeaCatalog)); }
+      window.localStorage.setItem("cafe-app:tea-temperatures-v7", "true");
     }
   } catch (error) {
     // The app still works when the browser blocks local storage.
